@@ -1,14 +1,25 @@
-#include "game_calls.h"
+#include <algorithm>
 #include <iostream>
 #include <limits>
 #include <ctime>
+#include "game_calls.h"
+
+Code::Code()
+{
+	// Easier to write! Arguments: number of elements, value of each element
+	code = std::vector<int>(4, 0);
+}
+
+Code::~Code() = default;		// .clear() will be called by ~vector()
 
 void Code::UpdateGuess()
 {
-	srand(time(NULL));
+	// Try using std::random instead
+	//srand(time(NULL));		// Compiler throws a warning here; so explicitly cast it
+	srand(static_cast<unsigned int>(time(NULL)));
 	for (size_t i = 0; i < code.size(); ++i)
 	{
-		code[i] = rand() % 10;
+		code[i] = rand() % 10;	// This is a flawed approach BTW
 	}
 }
 
@@ -37,7 +48,7 @@ std::vector<int> GetGuess()
 	return result;
 }
 
-bool CheckGuess(std::vector<int> guess, std::vector<int> code)
+bool CheckGuess(const std::vector<int>& guess, const std::vector<int>& code)
 {
 	if (guess.empty() || code.empty())
 	{
@@ -45,6 +56,7 @@ bool CheckGuess(std::vector<int> guess, std::vector<int> code)
 		return false;
 	}
 
+	// A for loop seems to make sense here; not sure why `while` is better?
 	size_t i = 0;
 	bool status = true;
 	while (i < guess.size() && i < code.size())
@@ -69,14 +81,8 @@ bool CheckGuess(std::vector<int> guess, std::vector<int> code)
 	return status;
 }
 
-bool ContainedIn(int current, std::vector<int> code)
+bool ContainedIn(int current, const std::vector<int>& code)
 {
-	for (auto e : code)
-	{
-		if (e == current)
-		{
-			return  true;
-		}
-	}
-	return false;
+	// Let STL do the searching
+	return std::find(code.begin(), code.end(), current) != code.end();
 }

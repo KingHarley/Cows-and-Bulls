@@ -1,5 +1,5 @@
+#include <iostream>			// Include system headers first
 #include "game_calls.h"
-#include <iostream>
 
 int main()
 {
