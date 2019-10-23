@@ -6,17 +6,8 @@ class Code
 public:
 	std::vector<int> code;
 	void UpdateGuess();
-	Code()
-	{
-		for (int i = 0; i < 4; ++i)
-		{
-			code.push_back(0);
-		}
-	}
-	~Code()
-	{
-		code.clear();
-	}
+	Code();
+	~Code();
 
 };
 
@@ -24,7 +15,7 @@ public:
 std::vector<int> GetGuess();
 
 // Does the checking of the guess and gives you your result. 
-bool CheckGuess(std::vector<int> guess, std::vector<int> code);
+bool CheckGuess(const std::vector<int>& guess,const std::vector<int>& code);
 
 // Checks if a digit is contained in code
-bool ContainedIn(int current, std::vector<int> code);
+bool ContainedIn(int current, const std::vector<int>& code);

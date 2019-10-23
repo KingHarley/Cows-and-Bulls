@@ -3,6 +3,20 @@
 #include <limits>
 #include <ctime>
 
+
+Code::Code()
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		code.push_back(0);
+	}
+}
+
+Code::~Code()
+{
+	code.clear();
+}
+
 void Code::UpdateGuess()
 {
 	srand(time(NULL));
@@ -37,7 +51,7 @@ std::vector<int> GetGuess()
 	return result;
 }
 
-bool CheckGuess(std::vector<int> guess, std::vector<int> code)
+bool CheckGuess(const std::vector<int>& guess,const std::vector<int>& code)
 {
 	if (guess.empty() || code.empty())
 	{
@@ -69,7 +83,7 @@ bool CheckGuess(std::vector<int> guess, std::vector<int> code)
 	return status;
 }
 
-bool ContainedIn(int current, std::vector<int> code)
+bool ContainedIn(int current,const std::vector<int>& code)
 {
 	for (auto e : code)
 	{
